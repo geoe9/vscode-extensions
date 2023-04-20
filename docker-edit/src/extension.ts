@@ -1,26 +1,21 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "docker-edit" is now active!');
+	var path: string;
+	const tabs: vscode.Tab[] = vscode.window.tabGroups.all.map(tg => tg.tabs).flat();
+    const index = tabs.findIndex(tab => tab.input instanceof vscode.TabInputText && tab.input.uri.path.endsWith('Dockerfile'));
+    if (index !== -1) {
+		const tab = tabs[index];
+		if (tab.input instanceof vscode.TabInputText) {
+			path = tab.input.uri.path;
+		};
+        await vscode.window.tabGroups.close(tab);
+    }
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('docker-edit.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from docker-edit!');
-	});
-
-	context.subscriptions.push(disposable);
+	
+	
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
