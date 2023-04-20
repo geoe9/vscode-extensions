@@ -32,6 +32,23 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 
+	disposable = vscode.commands.registerCommand('attack-suite.closeDockerfile', async () => {
+
+		var path: string;
+		const tabs: vscode.Tab[] = vscode.window.tabGroups.all.map(tg => tg.tabs).flat();
+    	const index = tabs.findIndex(tab => tab.input instanceof vscode.TabInputText && tab.input.uri.path.endsWith('Dockerfile'));
+    	if (index !== -1) {
+			const tab = tabs[index];
+			if (tab.input instanceof vscode.TabInputText) {
+				path = tab.input.uri.path;
+			};
+        	await vscode.window.tabGroups.close(tab);
+    	}
+
+	});
+
+	context.subscriptions.push(disposable);
+
 }
 
 // This method is called when your extension is deactivated
