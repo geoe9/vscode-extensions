@@ -15,6 +15,10 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "sendReverseShell",
+        "title": "[Test] Send Reverse Shell"
+      }
     ]
   },
   "scripts": {

