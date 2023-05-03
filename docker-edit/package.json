@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vscode-docker.commands.images.build.workspaceFolder"
+    "onCommand:vscode-docker.images.build"
   ],
   "main": "./out/extension.js",
   "contributes": {
