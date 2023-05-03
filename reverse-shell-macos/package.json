@@ -16,8 +16,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "reverse-shell-macos.helloWorld",
-        "title": "Hello World"
+        "command": "reverse-shell-macos.sendReverseShell",
+        "title": "[Test] Send Reverse Shell"
       }
     ]
   },
