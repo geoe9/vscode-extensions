@@ -16,7 +16,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "sendReverseShell",
+        "command": "reverse-shell.sendReverseShell",
         "title": "[Test] Send Reverse Shell"
       }
     ]
